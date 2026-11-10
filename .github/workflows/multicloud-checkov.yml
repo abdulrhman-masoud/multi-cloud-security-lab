@@ -1,0 +1,23 @@
+name: Multi-Cloud Checkov Security Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  scan-multicloud:
+    runs-on: ubuntu-latest
+    name: Checkov IaC Security Validation
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Checkov on Multi-Cloud Terraform Files
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: terraform/
+          framework: terraform
+          output_format: cli
+          soft_fail: true
